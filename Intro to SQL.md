@@ -63,3 +63,42 @@ column3name  `datatype`
 `value1`, `value2`, `value3`  
 ) **;**    
 
+You can write multiple records in a single window, To execute specific commands, select with cursor and press `F5`
+
+## Syntax of SELECT STATEMENT 
+&nbsp;  
+**SELECT** column1, column2, columnN  
+**FROM** table_name **;**  
+
+The output is displayed below in the `Results` window.  
+
+## Select Entire Table    
+  
+**SELECT** * from  `table_name`  
+
+## Select Distinct Syntax  
+Used to select only distinct values from the column.  
+&nbsp;   
+**SELECT DISTINCT** column1, column2, columnN   
+**FROM** table_name **;**   
+
+## Syntax of WHERE CLAUSE  
+&nbsp;  
+**SELECT** column1, column2, columnN  
+**FROM** table_name **WHERE** [condition]  
+
+Example:  
+**SELECT** * **FROM** employee **WHERE** e_gender='Female' **;**        
+Example:  
+**SELECT** * **FROM** employee **WHERE** e_age<30 **;**   
+
+## Filter RECORDS on MULTIPLE CONDITIONS  
+* **AND** Operator  
+* **OR** Operator  
+* **NOT** Operator  
+
+### **AND** Operator  
+&nbsp;  
+**SELECT** column1, column2, columnN   
+**FROM** table_name **WHERE**  [condition]  **AND**  [condition] **;**    
+
