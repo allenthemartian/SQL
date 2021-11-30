@@ -46,7 +46,7 @@ Uniquely identifies every record in a table.
 
 CANNOT HAVE MORE THAN ONE PRIMARY KEY  
 ```   
-
+____________________
 ## Syntax of CREATE TABLE  
 &nbsp;  
 **CREATE TABLE** `table_name` (  
@@ -91,7 +91,7 @@ Example:
 **SELECT** * **FROM** employee **WHERE** e_gender='Female' **;**        
 Example:  
 **SELECT** * **FROM** employee **WHERE** e_age<30 **;**   
-
+______________________
 ## Filter RECORDS on MULTIPLE CONDITIONS  
 * **AND** Operator  
 * **OR** Operator  
@@ -101,4 +101,169 @@ Example:
 &nbsp;  
 **SELECT** column1, column2, columnN   
 **FROM** table_name **WHERE**  [condition]  **AND**  [condition] **;**    
+&nbsp;  
+### **OR** Operator    
+Displays records if any of the conditions seperated by the **OR** operator is true.  
+
+**SELECT** column1, column2, columnN   
+**FROM** table_name **WHERE**  [condition1]  **OR**  [condition2] ... **OR** [conditionN] **;**    
+
+### **NOT** Operator   
+Displays a record if the condition is not true.  
+
+**SELECT** column1, column2, columnN   
+**FROM** table_name **WHERE NOT**  [condition] **;**    
+________________________
+## **LIKE** Operator   
+Used to extract records where a particular pattern is present.  
+
+Say if you had 3 names: Johnathan, Johnny & Marcus, the **LIKE** operator is used to extract *John*athan and *John*ny  
+
+Used in conjuction with `%` or `_`    
+
+`%` Represents zero, one or multiple characters.  
+`_` Represents a single character.  
+
+
+>The `_` can only **represent** one character, it cannot **represent** multiple characters.  
+>
+>Think of these *WildCard* Characters as fill in the blanks.  
+>
+>The `%` can represent multiple blanks, but the `_` can only represent one blank.    
+
+Even if the `_` is expected to find a single character in the middle of a word or a number, remember to use the `%` as prefix or suffix accordingly.  
+
+Eg. Filter values that start with a particular character    
+
+**SELECT** * **FROM** employee **WHERE** e_name **LIKE** 'J%'**;**  
+
+Result: Records where `e_name` are *Julia, Jeff* (Not case sensitive)
+
+## **BETWEEN** Operator
+Used to select values between a certain range.  
+
+### Syntax of **BETWEEN** Operator 
+&nbsp;   
+**SELECT** * **FROM** employee **WHERE** e_name **BETWEEN** 'a' **AND** 'm' **;**  
+
+Returns records where `e_name` contains names such as: *Bob, Anne, Julia, Jeff*  (Not case sensitive)  (Upper limit of specified range is inclusive UNLIKE Python)    
+
+**BETWEEN** Operator for numbers works the same with the upper limit being inclusive.  
+&nbsp;
+____________________________    
+# Functions in SQL  
+
+* **MIN()**
+* **MAX()**
+* **COUNT()**
+* **SUM()**  
+* **AVG()**  
+
+## **MIN()** Function   
+
+Returns the smallest value  
+
+## Syntax of **MIN()** Function  
+&nbsp;  
+**SELECT MIN**(`col_name`) **FROM** table_name  
+
+Eg. Extract the *Age* of the youngest employee of the company  
+
+**SELECT MIN** (`e_age`) **FROM** table_name  
+
+## **MAX()** Function   
+
+Returns the largest value  
+
+## Syntax of **MAX()** Function  
+&nbsp;  
+**SELECT MAX**(`col_name`) **FROM** table_name  
+
+Eg. Extract the highest paid employee of the company  
+
+**SELECT MAX** (`e_salary`) **FROM** table_name    
+
+## **MAX()** Function   
+
+Returns the number of rows that match a specific criteria.  
+
+## Syntax of **COUNT()** Function  
+&nbsp;  
+**SELECT COUNT** (`*`) **FROM** table_name **WHERE** `condition`**;**  
+
+Eg. How many male employees work at this company?  
+
+**SELECT COUNT** (`*`) **FROM** `employee` **WHERE** `e_gender` = 'Male'  
+&nbsp;  
+## Syntax of **SUM()** Function   
+&nbsp;  
+**SELECT SUM** (`col_name`) **FROM** table_name  
+
+`SUM()` function gives the total sum of a numeric column.    
+&nbsp;  
+## Manual AVERAGE of a Column  
+&nbsp;  
+**SELECT SUM** (`col_name`) / **COUNT** (`*`) **FROM** table_name **;**  
+&nbsp;  
+____________________________   
+# String Functions SQL  
+
+* **LTRIM()**
+* **LOWER()**  
+* **UPPER()** 
+* **REVERSE()**  
+* **SUBSTRING()**  
+
+## Syntax of **LTRIM()** Function  
+&nbsp;  
+**SELECT** '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spartaaaa' `Execute/F5`  
+**SELECT LTRIM**('spartaaaa')    
+&nbsp;  
+## Syntax of **LOWER()** Function  
+Converts all characters to lower case.    
+&nbsp;  
+**SELECT LOWER**('THIS IS SPARTA')  $\leftarrow$ No **;** needed.    
+
+## Syntax of **UPPER()** Function   
+Converts all characters to upper case.   
+&nbsp;  
+**SELECT UPPER**('this is sparta')  
+
+Result: THIS IS SPARTA  
+&nbsp;  
+## Syntax of **REVERSE** Function  
+Reverses all the characters in the string.  
+&nbsp;  
+**SELECT REVERSE**('i love icecream')  
+
+Result: maerceci evol i  
+
+## Syntax of **SUBSTRING()** Function   
+Gives a substring from the original string.  
+&nbsp;  
+**SUBSTRING()** requires 3 parameters:  
+
+* expression
+* starting_position int  (index position STARTING FROM $1$)
+* length int  (Length of the substring)  
+
+**SELECT SUBSTRING**('i love icecream', 8, 8)  
+
+Result: icecream
+&nbsp;  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
