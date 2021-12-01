@@ -251,7 +251,44 @@ Gives a substring from the original string.
 
 Result: icecream
 &nbsp;  
+____________________
+&nbsp;  
+* **ORDER BY** Keyword  
+* **TOP** Clause  
 
+## Syntax of **ORDER BY**  
+&nbsp;  
+**SELECT** column_list **FROM** table_name  
+**ORDER BY** col1, col2,....**ASC** or **DESC ;**  
+
+Example:  
+**SELECT** * **FROM** employee **ORDER BY** e_salary **DESC ;**  
+Result: Displays the entire table ordered by salary in descending order.  
+
+## Syntax of **TOP** Clause  
+
+Used to fetch the **TOP N** Records.  
+
+**SELECT TOP** **x** column_list  
+**FROM** table_name **;**
+
+# **GROUP BY**  
+
+Used to get aggregate result with respect to a group.  
+
+Example: Get the average salary of Male and Female seperately.  
+
+## Syntax of **GROUP BY** 
+
+**SELECT** column_list  
+**FROM** table_name  
+**WHERE** condition  
+**GROUP BY** colname(s)  
+**ORDER BY** colname(s)  
+
+If you mix up this sequence, then you might not get the right result.  
+
+**WHERE** Clause precedes the **ORDER BY** Clause  
 
 
 
