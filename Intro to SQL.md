@@ -267,7 +267,7 @@ Result: Displays the entire table ordered by salary in descending order.
 
 ## Syntax of **TOP** Clause  
 
-Used to fetch the **TOP N** Records.  
+Used to fetch the **TOP N** Records.  (Not the max but similar to *Python Pandas `df.head(x)` method), where x is the parameter passed into the `.head()` method.
 
 **SELECT TOP** **x** column_list  
 **FROM** table_name **;**
@@ -284,11 +284,56 @@ Example: Get the average salary of Male and Female seperately.
 **FROM** table_name  
 **WHERE** condition  
 **GROUP BY** colname(s)  
-**ORDER BY** colname(s)  
+**ORDER BY** colname(s)**;**
 
 If you mix up this sequence, then you might not get the right result.  
 
-**WHERE** Clause precedes the **ORDER BY** Clause  
+**WHERE** Clause precedes the **ORDER BY** Clause      
+
+
+**SELECT** **avg(**`e_salary`**),**`e_gender` **FROM** `employee` **GROUP BY** `e_gender`;  
+
+# **HAVING** Clause  
+
+Used in conjunction with **GROUP BY** to impose conditions on groups.  
+
+## Syntax of **HAVING** Clause   
+
+**SELECT** column_list  
+**FROM** table_name  
+**WHERE** condition  
+**GROUP BY** colname(s)
+**HAVING** condition  
+**ORDER BY** colname(s)**;**    
+
+
+**HAVING** $\rightarrow$ Used to run a condition inside the **GROUP BY** data, whereas the **WHERE** can *ONLY* be used before the **GROUP BY** and not after.  
+
+# **UPDATE** Statement  
+
+Used to modify the existing records in a table.  
+
+## Syntax of **UPDATE** Statement  
+**UPDATE** `table_name` 
+**SET** `col1`=`val1`**,**`col2`=`val2`...
+[**WHERE** Condition]**;**  
+
+**UPDATE** `employee` **SET** `e_dept` = 'Tech' **WHERE** `e_gender` = 'Female'**;**
+
+**SELECT** `*` **FROM** `employee`**;** (To view the results of modification)  
+
+# **DELETE** Statement  
+
+Used to delete existing records in a table.  
+
+## Syntax of **DELETE** Statement  
+
+**DELETE FROM** `table_name` [**WHERE** condition]**;**  
+
+
+
+
+
 
 
 
