@@ -330,9 +330,42 @@ Used to delete existing records in a table.
 
 **DELETE FROM** `table_name` [**WHERE** condition]**;**  
 
+# **TRUNCATE** Statement  
 
+Deletes all the data inside the table.  
 
+## Syntax of **TRUNCATE** Statement  
 
+**TRUNCATE TABLE** `table_name`**;**  
+
+# **INNER JOIN**   
+
+Returns records that have matching values in both the tables.   
+
+It is also known as **simple join**. 
+
+## Syntax of **INNER JOIN**  
+
+**SELECT** `columns`  
+**FROM** `table_1`  
+**INNER JOIN** `table_2`  
+**ON** `table_1.column_x` = `table_2.column_y`**;**  
+
+The **ON** keyword is used to define a condition on which the *Inner Join* will take place.  
+
+'''  
+SELECT employee.e_name, employee.e_dept, department.d_name, department.d_location  
+FROM employee  
+INNER JOIN department  
+ON employee.e_dept = department.d_name;  
+'''
+
+* **SELECT** $\leftarrow$ Define ALL columns involved    
+* **FROM** the first table   
+* **INNER JOIN** the second table    
+* **ON** the common table based upon which the equal assertion condition will take place  
+
+The *records* which do not satisfy the condition placed inside the **ON** keyword are not *inner joined*.  
 
 
 
