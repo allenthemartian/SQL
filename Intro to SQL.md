@@ -353,12 +353,12 @@ It is also known as **simple join**.
 
 The **ON** keyword is used to define a condition on which the *Inner Join* will take place.  
 
-'''  
+```
 SELECT employee.e_name, employee.e_dept, department.d_name, department.d_location  
 FROM employee  
 INNER JOIN department  
 ON employee.e_dept = department.d_name;  
-'''
+```
 
 * **SELECT** $\leftarrow$ Define ALL columns involved    
 * **FROM** the first table   
@@ -366,6 +366,19 @@ ON employee.e_dept = department.d_name;
 * **ON** the common table based upon which the equal assertion condition will take place  
 
 The *records* which do not satisfy the condition placed inside the **ON** keyword are not *inner joined*.  
+
+# **LEFT JOIN**  
+
+Returns all the the records from the left table, and the matched records from the right table.   
+
+## Syntax of **LEFT JOIN**  
+
+**SELECT** `columns`  
+**FROM** `table_1`  
+**LEFT JOIN** `table_2`  
+**ON** `table_1.column_x` = `table_2.column_y`**;**  
+
+Makes the `table_1` as the *must_display* table, and any records that do not match to the JOIN column in LEFT JOIN, the queried values are displayed as NULL.  
 
 
 
