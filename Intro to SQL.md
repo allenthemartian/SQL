@@ -171,6 +171,10 @@ Eg. Extract the *Age* of the youngest employee of the company
 
 **SELECT MIN** (`e_age`) **FROM** table_name  
 
+Eg 2. Extract the record of the youngest employee in the company.  
+
+**SELECT** * FROM `employee` WHERE `e_age` = (**SELECT MIN** (`e_age`) **FROM** `employee`)**;**   
+
 ## **MAX()** Function   
 
 Returns the largest value  
@@ -369,7 +373,7 @@ The *records* which do not satisfy the condition placed inside the **ON** keywor
 
 # **LEFT JOIN**  
 
-Returns all the the records from the left table, and the matched records from the right table.   
+Returns all the records from the left table, and the matched records from the right table.   
 
 ## Syntax of **LEFT JOIN**  
 
@@ -378,7 +382,23 @@ Returns all the the records from the left table, and the matched records from th
 **LEFT JOIN** `table_2`  
 **ON** `table_1.column_x` = `table_2.column_y`**;**  
 
-Makes the `table_1` as the *must_display* table, and any records that do not match to the JOIN column in LEFT JOIN, the queried values are displayed as NULL.  
+Makes the `table_1` as the *must_display* table, and any records that do not match to the JOIN column in LEFT JOIN, the queried values are displayed as NULL.    
+
+# **RIGHT JOIN**   
+
+Returns all the records from the *right* table, and the matched records from the left table.  
+
+## Syntax of **RIGHT JOIN**  
+
+**SELECT** `columns`  
+**FROM** `table_1`  
+**RIGHT JOIN** `table_2`  
+**ON** `table_1.column_x` = `table_2.column_y` **;**   
+
+Makes table_1 as the must_display table, and any records that do not match to the JOIN column in RIGHT JOIN, the queried values are displayed as NULL.  
+
+
+
 
 
 
