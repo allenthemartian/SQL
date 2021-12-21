@@ -149,7 +149,15 @@ Used to select values between a certain range.
 Returns records where `e_name` contains names such as: *Bob, Anne, Julia, Jeff*  (Not case sensitive)  (Upper limit of specified range is inclusive UNLIKE Python)    
 
 **BETWEEN** Operator for numbers works the same with the upper limit being inclusive.  
-&nbsp;
+&nbsp;  
+
+# List all tables in a DB  
+
+**SELECT** * **FROM** `information_schema.tables` **;**  
+
+Result:  
+
+TABLE_CATALOG |  TABLE_SCHEMA | TABLE_NAME | TABLE_TYPE |
 ____________________________    
 # Functions in SQL  
 
@@ -395,7 +403,50 @@ Returns all the records from the *right* table, and the matched records from the
 **RIGHT JOIN** `table_2`  
 **ON** `table_1.column_x` = `table_2.column_y` **;**   
 
-Makes table_1 as the must_display table, and any records that do not match to the JOIN column in RIGHT JOIN, the queried values are displayed as NULL.  
+Makes table_1 as the must_display table, and any records that do not match to the JOIN column in RIGHT JOIN, the queried values are displayed as NULL.      
+
+E.g  
+
+**SELECT** `employee.e_name`, `employee.e_dept`, `department.d_name`, `department.d_location` **FROM** `employee`
+**LEFT JOIN** `department`  
+**ON** `employee.e_dept` = `department.d_name`;   
+
+# **FULL JOIN** 
+
+Returns all the records from the *left* table **and** the *right* table, with NULL values in place where the join condition is not met.  
+
+## Syntax of **FULL JOIN** 
+
+**SELECT** `columns`  
+**FROM** `table_1`  
+**FULL JOIN** `table_2`  
+**ON** `table_1.column_x` = `table_2.column_y` **;** 
+
+# **UPDATE USING JOIN**  
+
+Used to modify values in *table_1* based on how values of a column may relate to a column in *table_2*.    
+
+E.g
+
+**UPDATE** `employee`  
+**SET** `e_age` = `e_age` + 10   
+**FROM** `employee`  
+**JOIN** `department` **ON** `employee.e_dept` = `department.d_name`;
+
+# **DELETE USING JOIN**  
+
+**DELETE** `employee`
+**FROM** `employee`
+**JOIN** `department`
+**ON** `employee.e_dept` = `department.d_name`
+**WHERE** `d_location` = `'New York'` **;**    
+
+# **UNION OPERATOR**  
+
+UNION operator is used to combine the result-set of two or more SELECT statements.  
+
+
+
 
 
 
