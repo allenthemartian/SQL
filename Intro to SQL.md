@@ -56,7 +56,22 @@ column3name  `datatype`
 
 **PRIMARY KEY** (`column`)  
 ) **;**
-  
+
+
+> *Example*
+>
+>**CREATE TABLE** `revision`(  
+`e_id` **INT NOT NULL**,   
+`e_name` **VARCHAR(20)**,  
+`e_salary` **INT**,  
+`e_age` **INT**,  
+`e_gender` **VARCHAR(20)**,  
+`e_dept` **VARCHAR(20)**,  
+>
+>**PRIMARY KEY**(`e_id`)  
+) **;**
+
+
 ## Syntax of INSERT QUERY  
 &nbsp;    
 **INSERT INTO** `table_name`  **VALUES** (    
