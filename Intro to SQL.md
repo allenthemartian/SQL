@@ -456,9 +456,49 @@ E.g
 **ON** `employee.e_dept` = `department.d_name`
 **WHERE** `d_location` = `'New York'` **;**    
 
-# **UNION OPERATOR**  
+# **UNION** Operator  
 
 UNION operator is used to combine the result-set of two or more SELECT statements.  
+
+$A \cup B$ returns the elements from **both** sets **w/o** duplicates.  
+
+## Syntax of **UNION OPERATOR**  
+
+**SELECT** `column_list` **FROM** `table_1`  
+**UNION**  
+**SELECT** `column_list` **FROM** `table_2` 
+
+*(The **number** and the **order** of the columns **must** be the same in both the select queries.)*  
+
+# **UNION ALL** Operator  
+
+UNION ALL operator gives all the rows from both the tables including the duplicates.  
+
+## Syntax of **UNION ALL** Operator   
+
+**SELECT** `column_list` **FROM** `table_1`  
+**UNION ALL**  
+**SELECT** `column_list` **FROM** `table_2`   
+
+# **EXCEPT** Operator  
+
+EXCEPT Operator combines *two SELECT statements* and returns **unique** records from the *left query* which are **not** a part of the *right query*.  
+
+## Syntax of **EXCEPT** Operator   
+
+**SELECT** `column_list` **FROM** `table_1`  
+**EXCEPT**  
+**SELECT** `column_list` **FROM** `table_2`     
+
+*(The **number** and the **order** of the columns **must** be the same in both the select queries.)*    
+
+# **INTERSECT** Operator  $A \cap B$ 
+
+INTERSECT Operator helps to combine two SELECT statements and returns the records which are **common** to both the SELECT statements.    
+
+
+
+
 
 
 
