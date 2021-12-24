@@ -496,6 +496,54 @@ EXCEPT Operator combines *two SELECT statements* and returns **unique** records 
 
 INTERSECT Operator helps to combine two SELECT statements and returns the records which are **common** to both the SELECT statements.    
 
+## Syntax of **INTERSECT** Operator  
+
+**SELECT** `column_list` **FROM** `table_1`  
+**INTERSECT**  
+**SELECT** `column_list` **FROM** `table_2`    
+
+*(The **number** and the **order** of the columns **must** be the same in both the select queries.)*      
+
+# **VIEW** 
+
+$\hookrightarrow$ is a virtual table based on the result of an sql statement
+
+*(used to limit the information you want to display)*  
+
+$\hookrightarrow$ Nothing but the result of an SQL statement with a name/keyword attached to it. 
+
+## Syntax of **VIEW** 
+
+*('CREATE VIEW' must be the first statement in a query batch.)*    
+*(CREATE VIEW must be the only statement in the batch)*  
+
+**CREATE VIEW** `female_employee` **AS**  
+**SELECT** * **FROM** `employee`  
+**WHERE** `e_gender` = 'Female';  
+$---------$   
+**SELECT** * **FROM** `female_employee` **;**  
+
+## Syntax of **DROP VIEW**  
+
+**DROP VIEW** `view_name` **;** 
+
+*Result: Commands completed successfully*  
+
+# **ALTER TABLE** Statement  
+
+Is used to add, delete or modify columns in a table.  
+
+## ALTER TABLE - ADD column  
+
+### Syntax of **ALTER TABLE - ADD**  
+
+**ALTER TABLE** `table_name`  
+**ADD** `column_name` `datatype`;  
+
+
+
+
+
 
 
 
