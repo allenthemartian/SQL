@@ -533,12 +533,59 @@ $---------$
 
 Is used to add, delete or modify columns in a table.  
 
-## ALTER TABLE - ADD column  
+## ALTER TABLE - ADD column    
+
+Creates a column with NULL values
 
 ### Syntax of **ALTER TABLE - ADD**  
 
 **ALTER TABLE** `table_name`  
 **ADD** `column_name` `datatype`;  
+
+## ALTER TABLE - DROP Column  
+
+Drop a column
+
+### Syntax of **ALTER TABLE - DROP**  
+
+**ALTER TABLE** `table_name`  
+**DROP COLUMN** `column_name` **;**   
+
+# **MERGE**   
+
+**MERGE** is the combination of **INSERT**, **DELETE** and **UPDATE** statements.  
+
+*Joins the **target table** to the **source table**.*  
+
+**MERGE** `target_table_name` **AS** `T` *(insert the target table, and assign it an alias using the **AS** keyword)*  
+**USING** `source_table_name` **AS** `S`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**ON** `join_condition`   
+**WHEN MATCHED** *(if the rows match up based on the join condition)*    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**THEN** `update_statment_to_target_table`    
+**WHEN NOT MATCHED BY TARGET** *(when rows are present in the source table and NOT in the target table)*  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**THEN** `insert_condition` *(Insert those rows from the source table into the target table)*  
+**WHEN NOT MATCHED BY SOURCE**  *(When rows are present in the target table and NOT in the source table)*  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**THEN** `delete_statement` *(then delete those rows from the target table)*  
+
+>Example:  
+
+**MERGE** `employee_target` **AS** `T`  
+**USING** `employee_source` **AS** `S`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**ON** `T.e_id` = `S.e_id`    
+**WHEN** **MATCHED**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**THEN** **UPDATE** **SET** `T.e_salary` = `S.e_salary`, `T.e_age` = `S.e_age`  
+**WHEN** **NOT** **MATCHED** **BY** **TARGET**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**THEN** **INSERT** (`e_id`, `e_name`, `e_salary`, `e_age`, `e_gender`, `e_dept`)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**VALUES** (`S.e_id`, `S.e_name`, `S.e_salary`, `S.e_age`, `S.e_gender`, `S.e_dept`)      
+**WHEN NOT MATCHED BY SOURCE**    
+
+
+
+
+
+ 
+
+
 
 
 
