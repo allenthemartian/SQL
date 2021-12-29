@@ -579,11 +579,69 @@ Drop a column
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**VALUES** (`S.e_id`, `S.e_name`, `S.e_salary`, `S.e_age`, `S.e_gender`, `S.e_dept`)      
 **WHEN NOT MATCHED BY SOURCE**    
 
+# User Defined Functions  
+
+* Scalar Valued Functions
+* Table Valued Functions  
+
+## Scalar Valued Functions  
+
+Scalar Valued Function always returns a scalar value.  
+
+### Syntax of Scalar Valued Functions  
+
+**CREATE FUNCTION** `function_name`(`@param1` `data_type`, `@param2` `data_type`...)   
+**RETURNS** `return_datatype`  
+**AS**  
+**BEGIN**  
+&nbsp;&nbsp;&nbsp;&nbsp;*----Function Body*  
+**RETURN** `value`    
+**END** *(To end the function)*    
+
+> Example:  
+
+**CREATE FUNCTION** `add_ten`(`@num` **AS INT**)  
+**RETURNS** **INT**  
+**AS**  
+**BEGIN**  
+**RETURN** (`@num` + 10)  
+**END** 
+
+*Calling the function:*  
+
+**SELECT** **dbo**.`add_ten`(10)  
+
+Result: 20
+
+## Table Valued Functions  
+
+Table valued functions returns a table.  
+
+### Syntax of Table Valued Functions 
+
+There is no **BEGIN** and **END** keyword for *Table Valued Functions*  
+
+**CREATE FUNCTION** `function_name`(`@param1` `data_type`, `@param2` `data_type`...)   
+**RETURNS** `table`    
+**AS**    
+**RETURN** (**SELECT** `column_list` **FROM** `table_name` **WHERE** [`condition`])    
+
+> Example:   
+
+**CREATE FUNCTION** `select_gender`(`@gender` **AS** **VARCHAR**(`20`))    
+**RETURNS** **TABLE**  
+**AS**  
+**RETURN** (**SELECT** * **FROM** `employee_target` **WHERE** `e_gender` = `@gender`)  
+
+*Calling the Function:*  
+
+**SELECT** * **FROM** (`dbo`.`select_gender`(`'Male'`)  
+
+Result: The `employee_target` with `e_gender` values which equal only `'Male'`.   
 
 
 
 
- 
 
 
 
