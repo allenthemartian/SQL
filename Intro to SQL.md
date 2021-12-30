@@ -635,9 +635,115 @@ There is no **BEGIN** and **END** keyword for *Table Valued Functions*
 
 *Calling the Function:*  
 
-**SELECT** * **FROM** (`dbo`.`select_gender`(`'Male'`)  
+**SELECT** * **FROM** `dbo`.`select_gender`(`'Male'`)  
 
 Result: The `employee_target` with `e_gender` values which equal only `'Male'`.   
+
+# Temporary Table  
+
+Temporary Tables are created in tempDB and deleted as soon as the session is terminated.  
+
+## Syntax to CREATE TEMPORARY TABLE  
+
+*Preceded with a hash.*
+
+**CREATE TABLE** `#table_name`();  
+
+# CASE Statement  
+
+CASE Statement helps in multi-way decision making.  
+
+*Analogous to if and elif from python and the newly introduced switch-case*  
+
+## Syntax of CASE Statement  
+
+**CASE**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**WHEN** `condition_1` **THEN** `Result_1`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**WHEN** `condition_2` **THEN** `Result_2`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**WHEN** `condition_N` **THEN** `Result_N`   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**ELSE** `Result`  
+**END;**  
+
+>Example:  
+
+**SELECT**  *(This happens to be required)*  
+**CASE**  
+**WHEN** 10>20 **THEN** '10 is greater than 20'  
+**WHEN** 10<20 **THEN** '10 is lesser than 20'    
+**ELSE** '10 is equal to 20'    
+**END**  
+
+Result: 10 is lesser than 20
+
+>Working Example:  
+
+**SELECT** *, `grade`=  
+**CASE**  
+**WHEN** `e_salary`<$90000$ **THEN** 'C'  
+**WHEN** `e_salary`<$120000$ **THEN** 'B'   
+**ELSE** 'A'  
+**END**  
+**FROM** `employee_target`  
+**GO**  *(**batch separator** used by the SQL for when more than one SQL Statement is entered in the Query window. Go separates the SQL statements.)*  
+
+# IIF() Function  
+
+is an alternative for the case statement.  
+
+## Syntax of the IIF() Function  
+
+**IIF(**`boolean_expression`, `true_value`, `false_value`**)**  
+
+>Example:  
+
+**SELECT** 
+**IIF**(10<20, '10 is lesser than 20', '10 is greater than 20');  
+
+>Working Example:
+
+**SELECT** *, `e_generation`=  
+**IIF**(`e_age`<30, 'Millenial', 'Boomer')  
+**FROM** `employee_target`  
+**GO**  
+
+$OR$  
+
+**SELECT** *, **IIF**(`e_age`<30, 'Millenial', 'Boomer') **AS** `e_generation` **FROM** `employee_target` **;**  
+
+# STORED PROCEDURE  
+
+**STORED PROCEDURE** is a prepared **SQL** code which can be saved and reused.    
+
+## Syntax of STORED PROCEDURE without parameter   
+
+**CREATE PROCEDURE** `procedure_name`  
+**AS**  
+`sql_statement`   
+**GO ;**  
+
+After the procedure has been created, we need to EXECUTE it.  
+
+### Syntax to EXECUTE a STORED PROCEDURE  
+
+**EXEC** `procedure_name`  
+
+> Example:  
+
+**CREATE PROCEDURE** `employee_age`  
+**AS**   
+**SELECT** `e_age` **FROM** `employee_target`  
+**GO ;**  
+
+$THEN$    
+
+**EXEC** `employee_age`;    
+
+https://towardsdatascience.com/customers-who-viewed-this-item-also-viewed-40026c4eb700
+
+
+
+
+
 
 
 
