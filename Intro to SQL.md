@@ -738,7 +738,90 @@ $THEN$
 
 **EXEC** `employee_age`;    
 
-https://towardsdatascience.com/customers-who-viewed-this-item-also-viewed-40026c4eb700
+## Syntax of STORED PROCEDURE with parameter  
+
+**CREATE PROCEDURE** `employee_age` `@param1` `datatype`, `@param2` `datatype`    
+**AS**   
+`sql_statement`  
+**GO ;**   
+
+>Example:  
+
+**CREATE PROCEDURE** `employee_gender` `@gender` **VARCHAR**(20)  
+**AS**  
+**SELECT** * **FROM** `employee_target` **WHERE** `e_gender` = `@gender`  
+**GO**  
+
+**EXEC** `employee_gender` `@gender` = 'Male' **;**  
+
+# Exception Handling   
+
+**Exception:** An error condition during program execution is called *Exception*.  
+
+**Exception Handling:**  The mechanism for resolving such an exception is called exception handling.  
+
+# TRY/CATCH  
+
+SQL provides the TRY/CATCH block for exception handling.  
+
+&nbsp;&nbsp;&nbsp;$TRY BLOCK$  
+
+$[SQL Statements]$  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Throws error*  
+&nbsp;  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\downarrow$  
+&nbsp;  
+&nbsp;&nbsp;&nbsp;$CATCH BLOCK$  
+
+$[Handling Exception]$   
+
+## Syntax of TRY/CATCH 
+&nbsp;  
+**BEGIN TRY**  
+&nbsp;  
+`SQL Statements`  
+&nbsp;   
+**END TRY**  
+&nbsp;   
+**BEGIN CATCH**      
+&nbsp;  
+*- Print error OR*   
+*- Rollback Transaction*    
+&nbsp;  
+**END CATCH** 
+
+# Creating VARIABLES  
+
+The **DECLARE** statment is used to create variables.  
+
+## Syntax of Creating Variables  
+
+**DECLARE** `@val_1` **INT** **;**  
+**DECLARE** `@val_2` **INT** **;**  
+
+>Working Example of TRY/CATCH  
+
+**DECLARE** `@val_1` **INT** **;**     
+**DECLARE** `@val_2` **INT** **;**    
+
+**BEGIN** **TRY**    
+**SET** `@val_1` = 8 **;**  
+**SET** `@val_2` = `@val_1`/0 **;**  
+**END** **TRY**  
+
+**BEGIN** **CATCH**  
+**PRINT** 'Division by Zero'  
+**END** **CATCH**
+
+$OR$
+
+**BEGIN** **CATCH**  
+**PRINT** **`ERROR_MESSAGE()`** *Default error message*   
+**END** **CATCH**
+
+
+
 
 
 
