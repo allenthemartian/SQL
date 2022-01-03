@@ -78,7 +78,20 @@ column3name  `datatype`
 `value1`, `value2`, `value3`  
 ) **;**    
 
-You can write multiple records in a single window, To execute specific commands, select with cursor and press `F5`
+You can write multiple records in a single window, To execute specific commands, select with cursor and press `F5`  
+
+To insert multiple values using a single command:  
+
+>Example:  
+
+**INSERT INTO** `revision_3_Jan` **VALUES**  
+(1, 'Sam', 93000, 40, 'Male', 'Operations'),  
+(2, 'Bob', 80000, 21, 'Male', 'Support'),  
+(3, 'Anne', 130000, 25, 'Female', 'Analytics'),  
+(4, 'Jeff', 112000, 27, 'Male', 'Operations'),  
+(5, 'Adam', 100000, 28, 'Male', 'Content'),  
+(6, 'Priya', 85000, 37, 'Female', 'Tech');    
+
 
 ## Syntax of SELECT STATEMENT 
 &nbsp;  
