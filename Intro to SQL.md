@@ -376,7 +376,17 @@ Deletes all the data inside the table.
 
 ## Syntax of **TRUNCATE** Statement  
 
-**TRUNCATE TABLE** `table_name`**;**  
+**TRUNCATE TABLE** `table_name`**;**    
+
+# **DROP TABLE** Statement  
+
+Used to drop an existing table from the database.    
+
+The key difference b/w **TRUNCATE TABLE** statement and **DROP TABLE** statement is **TRUNCATE** is used to delete data from inside the table but not the table itself.  
+
+## Syntax of **DROP TABLE** Statement   
+
+**DROP TABLE** `table_name`**;**   
 
 # **INNER JOIN**   
 
@@ -459,15 +469,16 @@ E.g
 **UPDATE** `employee`  
 **SET** `e_age` = `e_age` + 10   
 **FROM** `employee`  
-**JOIN** `department` **ON** `employee.e_dept` = `department.d_name`;
+**JOIN** `department`  
+**ON** `employee.e_dept` = `department.d_name`;
 
 # **DELETE USING JOIN**  
 
-**DELETE** `employee`
-**FROM** `employee`
-**JOIN** `department`
-**ON** `employee.e_dept` = `department.d_name`
-**WHERE** `d_location` = `'New York'` **;**    
+**DELETE** `employee`  
+**FROM** `employee`  
+**JOIN** `department`  
+**ON** `employee.e_dept` = `department.d_name`  
+**WHERE** `d_location` = `'New York'` **;**      
 
 # **UNION** Operator  
 
