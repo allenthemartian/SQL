@@ -601,7 +601,57 @@ Drop a column
 **WHEN** **NOT** **MATCHED** **BY** **TARGET**  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**THEN** **INSERT** (`e_id`, `e_name`, `e_salary`, `e_age`, `e_gender`, `e_dept`)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**VALUES** (`S.e_id`, `S.e_name`, `S.e_salary`, `S.e_age`, `S.e_gender`, `S.e_dept`)      
-**WHEN NOT MATCHED BY SOURCE**    
+**WHEN NOT MATCHED BY SOURCE**      
+
+
+>Working Example 2:  
+
+**PRODUCT_LIST**
+| p_id | p_name | p_price |  
+| --- | ----------- | ---- |  
+| 101 | TEA | 10.00 |  
+| 102 | COFFEE | 15.00 |  
+| 103 | BISCUIT | 20.00 |  
+
+**UPDATED_LIST**  
+| p_id | p_name | p_price |  
+| --- | ----------- | ---- |  
+| 101 | TEA | 10.00 |  
+| 102 | COFFEE | 25.00 |  
+| 104 | CHIPS | 22.00 |  
+
+The task is to update the details of the products in the `PRODUCT_LIST` as per the `UPDATED_LIST`.  
+
+1. **UPDATE** operation  
+
+102 COFFEE *25.00*  
+
+2. **DELETE** operation  
+
+103 *BISCUIT* 20.00  
+
+3. **INSERT** operation  
+
+104 *CHIPS* 22.00
+
+**MERGE** `product_list` **AS** T  
+**USING** `updated_list` **AS** S  
+**ON** (`T.p_id` = `S.p_id`)  
+**WHEN MATCHED**  
+**THEN UPDATE SET** `T.p_price` = `S.p_price`  
+**WHEN NOT MATCHED BY TARGET**  
+**THEN INSERT** (`p_id`, `p_name`, `p_price`) **VALUES**  
+(`S.p_id`, `S.p_name`, `S.p_price`)  
+**WHEN NOT MATCHED BY SOURCE**  
+**THEN DELETE** **;**    
+&nbsp;  
+**UPDATED_TARGET_LIST** 
+
+| p_id | p_name | p_price |  
+| --- | ----------- | ---- |  
+| 101 | TEA | 10.00 |  
+| 102 | COFFEE | 25.00 |  
+| 104 | CHIPS | 22.00 |    
 
 # User Defined Functions  
 
@@ -631,7 +681,7 @@ Scalar Valued Function always returns a scalar value.
 **RETURN** (`@num` + 10)  
 **END** 
 
-*Calling the function:*  
+*Calling the function:*  (Use **GO** after the function)  
 
 **SELECT** **dbo**.`add_ten`(10)  
 
@@ -646,10 +696,10 @@ Table valued functions returns a table.
 There is no **BEGIN** and **END** keyword for *Table Valued Functions*  
 
 **CREATE FUNCTION** `function_name`(`@param1` `data_type`, `@param2` `data_type`...)   
-**RETURNS** `table`    
+**RETURNS TABLE**     
 **AS**    
 **RETURN** (**SELECT** `column_list` **FROM** `table_name` **WHERE** [`condition`])    
-
+&nbsp;  
 > Example:   
 
 **CREATE FUNCTION** `select_gender`(`@gender` **AS** **VARCHAR**(`20`))    
@@ -661,7 +711,25 @@ There is no **BEGIN** and **END** keyword for *Table Valued Functions*
 
 **SELECT** * **FROM** `dbo`.`select_gender`(`'Male'`)  
 
-Result: The `employee_target` with `e_gender` values which equal only `'Male'`.   
+Result: The `employee_target` with `e_gender` values which equal only `'Male'`.    
+&nbsp;  
+> Example 2:  
+
+**CREATE FUNCTION** `cheap_products`(`@budget` **AS FLOAT**)  
+**RETURNS TABLE**    
+**AS**  
+**RETURN** (**SELECT** * **FROM** `product_list` **WHERE** `p_price` < `@budget`)  
+**GO**  
+
+**SELECT** * **FROM** `dbo.cheap_products`(20);  
+
+Result:  
+
+| p_id | p_name | p_price |  
+| --- | ----------- | ---- |  
+| 101 | TEA | 10.00 |  
+   
+
 
 # Temporary Table  
 
@@ -708,7 +776,24 @@ Result: 10 is lesser than 20
 **ELSE** 'A'  
 **END**  
 **FROM** `employee_target`  
-**GO**  *(**batch separator** used by the SQL for when more than one SQL Statement is entered in the Query window. Go separates the SQL statements.)*  
+**GO**  *(**batch separator** used by the SQL for when more than one SQL Statement is entered in the Query window. Go separates the SQL statements.)*    
+
+**CREATE FUNCTION** `compare_numbers`(`@num1` **AS INT**, `@num2` **AS INT**)  
+**RETURNS VARCHAR**(50)  
+**AS**  
+**BEGIN**  
+**RETURN**  
+**CASE**  
+**WHEN** `@num1` < `@num2` **THEN** 'Num 2 is greater than Num 1'  
+**WHEN** `@num2` < `@num1` **THEN** 'Num 1 is greater than Num 2'  
+**WHEN** `@num1` = `@num2` **THEN** 'Both numbers are equal'  
+**ELSE** 'Enter a valid input'  
+**END**  
+**END** **;**  
+
+**SELECT** `dbo.compare_numbers`(10, 2) **;**   
+
+Result: 'Num 1 is greater than Num 2'  
 
 # IIF() Function  
 
@@ -733,6 +818,19 @@ is an alternative for the case statement.
 $OR$  
 
 **SELECT** *, **IIF**(`e_age`<30, 'Millenial', 'Boomer') **AS** `e_generation` **FROM** `employee_target` **;**  
+
+> Example within a Function:  
+
+**CREATE FUNCTION** `compare_numbers2`(`@num1` **AS INT**, `@num2` **AS INT**)  
+**RETURNS VARCHAR**(50)  
+**AS**  
+**BEGIN**  
+**RETURN**  
+**IIF**(`@num1` > `@num2`, 'Num 1 is greater than Num 2', 'Num 2 is greater than Num 1')  
+**END**  
+**GO**  
+
+**SELECT** `dbo.compare_numbers2`(10, 13) **;**    
 
 # STORED PROCEDURE  
 
