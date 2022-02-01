@@ -942,6 +942,19 @@ $OR$
 **PRINT** **`ERROR_MESSAGE()`** *Default error message*   
 **END** **CATCH**
 
+>Working Example of TRY/CATCH  
+
+**BEGIN TRY**  
+**SELECT** e_name + e_age **FROM** employee  
+**END TRY**  
+**BEGIN CATCH**  
+**PRINT** 'CANNOT CONCATENATE'  
+**END CATCH**  
+
+Result: The error message is not displayed in results tab, but in the Messages tab.  
+
+
+
 
 
 
