@@ -954,15 +954,121 @@ $OR$
 Result: The error message is not displayed in results tab, but in the Messages tab.  
 
 
+## Multiple Equal To
+
+Similar to python `in`:  
+
+SELECT * FROM EmployeeDemographics  
+WHERE FirstName in ('Jim', 'Michael');  
 
 
+## Multi-Index GROUP BY  
+
+**SELECT** Gender, Age, **COUNT**(Gender) **FROM** EmployeeDemographics  
+**GROUP BY** Gender, Age;  
+
+## UNION  
+
+**SELECT** * **FROM** SQLALEX.dbo.EmployeeDemographics    
+**UNION**  
+**SELECT** * **FROM** SQLALEX.dbo.WareHouseEmployeeDemographics;   
+
+Takes care of Duplicate Values.  
+
+## UNION ALL  
+
+Includes all duplicate values:  
+
+**SELECT** * **FROM** SQLALEX.dbo.EmployeeDemographics  
+**UNION** **ALL**  
+**SELECT** * **FROM** SQLALEX.dbo.WareHouseEmployeeDemographics;    
 
 
+## UNION, different columns   
+
+**SELECT** EmployeeID, FirstName, Age **FROM** SQLALEX.dbo.EmployeeDemographics  
+**UNION**  
+**SELECT** EmployeeID, JobTitle, Salary **FROM** SQLALEX.dbo.EmployeeSalary  
+**ORDER** **BY** EmployeeID;  
+
+It still works, if it is the same datatype.  
+
+## CASE Statement  (Order of CASE Statment Matters)
+
+**SELECT**  FirstName, LastName, JobTitle, Salary,  
+**CASE**  
+	**WHEN** JobTitle = 'Salesman' **THEN** Salary + (Salary * 0.10)  
+	**WHEN** JobTitle = 'Accountant' **THEN** Salary + (Salary * 0.05)  
+	**WHEN** JobTitle = 'HR' **THEN** Salary + (Salary * 0.000001)  
+	**ELSE** Salary + (Salary * 0.03)  
+**END** **AS** SalaryAfterRaise  
+**FROM** SQLALEX.dbo.EmployeeDemographics  
+**JOIN** SQLALEX.dbo.EmployeeSalary     
+
+## COUNT with GROUP BY 
+
+**SELECT** JobTitle, **COUNT**(JobTitle)  
+**FROM** SQLALEX.dbo.EmployeeDemographics  
+**JOIN**  
+SQLALEX.dbo.EmployeeSalary  
+**ON** EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID  
+**GROUP** **BY** (JobTitle)  
+
+## HAVING with GROUP BY  
+
+**SELECT** JobTitle, **COUNT**(JobTitle)  
+**FROM** SQLALEX.dbo.EmployeeDemographics  
+**JOIN**  
+SQLALEX.dbo.EmployeeSalary  
+**ON** EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID  
+**GROUP** **BY** (JobTitle)   
+**HAVING** **COUNT**(JobTitle) > 1;    
 
 
+## UPDATE ROWS based on Condition  
+
+**UPDATE** SQLALEX.dbo.EmployeeDemographics  
+**SET** EmployeeID = 1012  
+**WHERE** FirstName = 'Holly' **AND** LastName = 'Flax'  
+
+## DELETE   
+
+**DELETE** **FROM** SQLALEX.dbo.EmployeeDemographics  
+**WHERE** EmployeeID = 1005  
+
+ALWAYS  
+
+Replace DELETE with SELECT * and check if you're writing the query in the correct manner.  
+
+## ALIASING (Improving Readibility)   
+
+Temporarily Changes Column Name.  
+
+**SELECT** FirstName + ' ' + LastName **AS** FullName  
+**FROM** SQLALEX.dbo.EmployeeDemographics;  
+
+Temporarily Changes Table Name.  
+
+**SELECT** Demo.EmployeeID  
+**FROM** SQLALEX.dbo.EmployeeDemographics **AS** Demo;  
+
+This is especially useful when creating Tables from **JOIN**  
+
+**SELECT** Demo.EmployeeID, Salary  
+**FROM** SQLALEX.dbo.EmployeeDemographics **AS** Demo  
+**JOIN** SQLALEX.dbo.EmployeeSalary	**AS** Sal  
+**ON** Demo.EmployeeID = Sal.EmployeeID  
 
 
+## PARTITION BY  (Unrolls GROUP BY)  
 
+**SELECT** FirstName, LastName, Gender, Salary,  
+**COUNT**(Gender) **OVER** (**PARTITION** **BY** Gender) **AS** TotalGender  
+**FROM** SQLALEX.dbo.EmployeeDemographics **AS** Demo   
+**JOIN**  
+SQLALEX..EmployeeSalary **AS** Sal  
+**ON**   
+Demo.EmployeeID = Sal.EmployeeID;  
 
 
 
