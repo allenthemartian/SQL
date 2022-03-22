@@ -1070,10 +1070,73 @@ SQLALEX..EmployeeSalary **AS** Sal
 **ON**   
 Demo.EmployeeID = Sal.EmployeeID;  
 
+We're able to isolate just one column we want to aggregate on.  
+
+## CTE  
+
+All of the script written below is very temporary.  
+
+WITH CTE_Employee as  
+(SELECT FirstName, LastName, Gender, Salary,    
+COUNT(Gender) OVER (PARTITION BY Gender) AS TotalGender,  
+AVG(Salary) OVER (PARTITION BY Gender) AS AvgSalary    
+FROM SQLALEX.dbo.EmployeeDemographics AS Demo   
+JOIN    
+SQLALEX..EmployeeSalary AS Sal    
+ON     
+Demo.EmployeeID = Sal.EmployeeID  
+WHERE Salary > '45000'  
+)  
+
+SELECT FirstName, AvgSalary FROM CTE_Employee   (This statement cannot be run alone )  
+
+## TEMPORARY TABLE (Only difference is `#`)
+
+CREATE TABLE #temp_Employee (  
+EmployeeID INT,  
+JobTitle VARCHAR(100),  
+Salary INT   
+)  
+
+INSERT INTO #Temp_Employee2  
+SELECT JobTitle, Count(JobTitle), AVG(Age), AVG(Salary)  
+FROM SQLALEX.dbo.EmployeeDemographics AS emp  
+JOIN  
+SQLALEX.dbo.EmployeeSalary AS sal  
+ON emp.EmployeeID = sal.EmployeeID  
+GROUP BY JobTitle  
+
+SELECT *  
+FROM #Temp_Employee2   
+
+Allows us to work with the GROUP BY Results without rerunning the GROUP BY again and again. Saves on time and processing power. 
+
+Used widely in STORED PROCEDURES.  
+
+The TEMP Table is stored somewhere. 
+
+So a trick to overcome:
+
+DROP TABLE IF EXISTS #Temp_Employee2  
 
 
+## TRIM  
 
+SELECT EmployeeID, TRIM(EmployeeID) AS IDTRIM  
+FROM EmployeeErrors  
 
+Removes Blank Spaces  
+
+SELECT EmployeeID, LTRIM(EmployeeID) AS IDTRIM  
+FROM EmployeeErrors    
+
+SELECT EmployeeID, RTRIM(EmployeeID) AS IDTRIM  
+FROM EmployeeErrors    
+
+## SUBQUERY  
+
+SELECT EmployeeID, Salary, (SELECT AVG(Salary) FROM   EmployeeSalary) AS AllAvgSalary  
+FROM EmployeeSalary  
 
 
 
