@@ -601,12 +601,14 @@ Drop a column
 **WHEN** **NOT** **MATCHED** **BY** **TARGET**  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**THEN** **INSERT** (`e_id`, `e_name`, `e_salary`, `e_age`, `e_gender`, `e_dept`)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**VALUES** (`S.e_id`, `S.e_name`, `S.e_salary`, `S.e_age`, `S.e_gender`, `S.e_dept`)      
-**WHEN NOT MATCHED BY SOURCE**      
+**WHEN NOT MATCHED BY SOURCE**    
+**THEN DELETE** **;**       
 
 
 >Working Example 2:  
 
-**PRODUCT_LIST**
+**PRODUCT_LIST**  
+
 | p_id | p_name | p_price |  
 | --- | ----------- | ---- |  
 | 101 | TEA | 10.00 |  
@@ -614,6 +616,7 @@ Drop a column
 | 103 | BISCUIT | 20.00 |  
 
 **UPDATED_LIST**  
+
 | p_id | p_name | p_price |  
 | --- | ----------- | ---- |  
 | 101 | TEA | 10.00 |  
@@ -645,10 +648,10 @@ The task is to update the details of the products in the `PRODUCT_LIST` as per t
 **WHEN NOT MATCHED BY SOURCE**  
 **THEN DELETE** **;**    
 &nbsp;  
-**UPDATED_TARGET_LIST** 
+**UPDATED_TARGET_LIST**  
 
 | p_id | p_name | p_price |  
-| --- | ----------- | ---- |  
+|--|--|--| 
 | 101 | TEA | 10.00 |  
 | 102 | COFFEE | 25.00 |  
 | 104 | CHIPS | 22.00 |    
@@ -1076,40 +1079,40 @@ We're able to isolate just one column we want to aggregate on.
 
 All of the script written below is very temporary.  
 
-WITH CTE_Employee as  
-(SELECT FirstName, LastName, Gender, Salary,    
-COUNT(Gender) OVER (PARTITION BY Gender) AS TotalGender,  
-AVG(Salary) OVER (PARTITION BY Gender) AS AvgSalary    
-FROM SQLALEX.dbo.EmployeeDemographics AS Demo   
-JOIN    
-SQLALEX..EmployeeSalary AS Sal    
-ON     
+**WITH** CTE_Employee **AS**    
+(**SELECT** FirstName, LastName, Gender, Salary,    
+**COUNT**(Gender) **OVER** (**PARTITION BY** Gender) **AS** TotalGender,  
+**AVG**(Salary) **OVER** (**PARTITION BY** Gender) **AS** AvgSalary    
+**FROM** SQLALEX.dbo.EmployeeDemographics **AS** Demo   
+**JOIN**    
+SQLALEX..EmployeeSalary **AS** Sal    
+**ON**     
 Demo.EmployeeID = Sal.EmployeeID  
-WHERE Salary > '45000'  
+**WHERE** Salary > '45000'  
 )  
 
-SELECT FirstName, AvgSalary FROM CTE_Employee   (This statement cannot be run alone )  
+**SELECT** FirstName, AvgSalary **FROM** CTE_Employee   (This statement cannot be run alone )  
 
 ## TEMPORARY TABLE (Only difference is `#`)
 
-CREATE TABLE #temp_Employee (  
-EmployeeID INT,  
-JobTitle VARCHAR(100),  
-Salary INT   
+**CREATE TABLE** **#**temp_Employee (  
+EmployeeID **INT**,  
+JobTitle **VARCHAR**(100),  
+Salary **INT**   
 )  
 
-INSERT INTO #Temp_Employee2  
-SELECT JobTitle, Count(JobTitle), AVG(Age), AVG(Salary)  
-FROM SQLALEX.dbo.EmployeeDemographics AS emp  
-JOIN  
-SQLALEX.dbo.EmployeeSalary AS sal  
-ON emp.EmployeeID = sal.EmployeeID  
-GROUP BY JobTitle  
+**INSERT INTO** **#**Temp_Employee2  
+**SELECT** JobTitle, Count(JobTitle), **AVG**(Age), **AVG**(Salary)  
+**FROM** SQLALEX.dbo.EmployeeDemographics **AS** emp  
+**JOIN**  
+SQLALEX.dbo.EmployeeSalary **AS** sal  
+**ON** emp.EmployeeID = sal.EmployeeID  
+**GROUP BY** JobTitle  
 
-SELECT *  
-FROM #Temp_Employee2   
+**SELECT** *  
+**FROM** **#**Temp_Employee2   
 
-Allows us to work with the GROUP BY Results without rerunning the GROUP BY again and again. Saves on time and processing power. 
+Allows us to work with the `GROUP BY` Results without rerunning the `GROUP BY` again and again. Saves on time and processing power. 
 
 Used widely in STORED PROCEDURES.  
 
@@ -1117,26 +1120,26 @@ The TEMP Table is stored somewhere.
 
 So a trick to overcome:
 
-DROP TABLE IF EXISTS #Temp_Employee2  
+**DROP TABLE IF EXISTS #**Temp_Employee2  
 
 
 ## TRIM  
 
-SELECT EmployeeID, TRIM(EmployeeID) AS IDTRIM  
-FROM EmployeeErrors  
+**SELECT** EmployeeID, **TRIM**(EmployeeID) **AS IDTRIM**    
+**FROM** EmployeeErrors  
 
 Removes Blank Spaces  
 
-SELECT EmployeeID, LTRIM(EmployeeID) AS IDTRIM  
-FROM EmployeeErrors    
+**SELECT** EmployeeID, **LTRIM**(EmployeeID) **AS IDTRIM**    
+**FROM** EmployeeErrors    
 
-SELECT EmployeeID, RTRIM(EmployeeID) AS IDTRIM  
-FROM EmployeeErrors    
+**SELECT** EmployeeID, **RTRIM**(EmployeeID) **AS IDTRIM**    
+**FROM** EmployeeErrors    
 
 ## SUBQUERY  
 
-SELECT EmployeeID, Salary, (SELECT AVG(Salary) FROM   EmployeeSalary) AS AllAvgSalary  
-FROM EmployeeSalary  
+**SELECT** EmployeeID, Salary, (**SELECT AVG**(Salary) **FROM**     EmployeeSalary) **AS** AllAvgSalary  
+**FROM** EmployeeSalary  
 
 
 
@@ -1166,4 +1169,3 @@ FROM EmployeeSalary
 
 
  
-
